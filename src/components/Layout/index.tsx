@@ -20,12 +20,12 @@ const navbarList = [
     link: '/',
     activeLink: ['/']
   },
-  {
-    label: '共享',
-    icon: 'shareMarket',
-    link: '/model/share',
-    activeLink: ['/model/share']
-  },
+  // {
+  //   label: '共享',
+  //   icon: 'shareMarket',
+  //   link: '/model/share',
+  //   activeLink: ['/model/share']
+  // },
   {
     label: '模型',
     icon: 'model',
@@ -38,19 +38,19 @@ const navbarList = [
     icon: 'user',
     link: '/number/setting',
     activeLink: ['/number/setting']
-  },
-  {
-    label: '邀请',
-    icon: 'promotion',
-    link: '/promotion',
-    activeLink: ['/promotion']
-  },
-  {
-    label: '开发',
-    icon: 'develop',
-    link: '/openapi',
-    activeLink: ['/openapi']
   }
+  // {
+  //   label: '邀请',
+  //   icon: 'promotion',
+  //   link: '/promotion',
+  //   activeLink: ['/promotion']
+  // }
+  // {
+  //   label: '开发',
+  //   icon: 'develop',
+  //   link: '/openapi',
+  //   activeLink: ['/openapi']
+  // }
 ];
 
 const Layout = ({ children }: { children: JSX.Element }) => {
