@@ -353,12 +353,12 @@ const SlideBar = ({
         </>
       </RenderButton>
 
-      <RenderButton onClick={() => router.push('/number/setting')}>
+      {/* <RenderButton onClick={() => router.push('/number/setting')}>
         <>
           <MyIcon name="pay" fill={'white'} w={'16px'} h={'16px'} mr={4} />
           充值
         </>
-      </RenderButton>
+      </RenderButton> */}
 
       <Flex alignItems={'center'} mr={4}>
         <Box flex={1}>
