@@ -9,24 +9,19 @@ import { UserUpdateParams } from '@/types/user';
 /* 更新一些基本信息 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   try {
-    const { openaiKey } = req.body as UserUpdateParams;
-    const { authorization } = req.headers;
+    const { openaiKey, avatar } = req.body as UserUpdateParams;
 
-    if (!authorization) {
-      throw new Error('无权操作');
-    }
-
-    const userId = await authToken(authorization);
+    const userId = await authToken(req);
 
     await connectToDatabase();
-
     // 更新对应的记录
     await User.updateOne(
       {
         _id: userId
       },
       {
-        openaiKey
+        ...(avatar && { avatar }),
+        ...(openaiKey !== undefined && { openaiKey })
       }
     );
 

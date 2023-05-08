@@ -4,7 +4,7 @@ import { useLoading } from '@/hooks/useLoading';
 import { getShareModelList, triggerModelCollection, getCollectionModels } from '@/api/model';
 import { usePagination } from '@/hooks/usePagination';
 import type { ShareModelItem } from '@/types/model';
-
+import { useUserStore } from '@/store/user';
 import ShareModelList from './components/list';
 import { useQuery } from '@tanstack/react-query';
 
@@ -12,6 +12,7 @@ const modelList = () => {
   const { Loading } = useLoading();
   const lastSearch = useRef('');
   const [searchText, setSearchText] = useState('');
+  const { refreshModel } = useUserStore();
 
   /* 加载模型 */
   const { data, isLoading, Pagination, getData, pageNum } = usePagination<ShareModelItem>({
@@ -41,24 +42,25 @@ const modelList = () => {
         await triggerModelCollection(modelId);
         getData(pageNum);
         refetchCollection();
+        refreshModel.removeModelDetail(modelId);
       } catch (error) {
         console.log(error);
       }
     },
-    [getData, pageNum, refetchCollection]
+    [getData, pageNum, refetchCollection, refreshModel]
   );
 
   return (
-    <>
+    <Box py={[5, 10]} px={'5vw'}>
       <Card px={6} py={3}>
         <Flex alignItems={'center'} justifyContent={'space-between'}>
           <Box fontWeight={'bold'} fontSize={'xl'}>
-            我收藏的模型
+            我收藏的AI助手
           </Box>
         </Flex>
         {collectionModels.length == 0 && (
           <Box textAlign={'center'} pt={3}>
-            还没有收藏模型~
+            还没有收藏AI助手~
           </Box>
         )}
         <Grid templateColumns={['1fr', '1fr 1fr', '1fr 1fr 1fr']} gridGap={4} mt={4}>
@@ -69,7 +71,7 @@ const modelList = () => {
       <Card mt={5} px={6} py={3}>
         <Box display={['block', 'flex']} alignItems={'center'} justifyContent={'space-between'}>
           <Box fontWeight={'bold'} flex={1} fontSize={'xl'}>
-            模型共享市场{' '}
+            AI助手市场
             <Box as={'span'} fontWeight={'normal'} fontSize={'md'}>
               (Beta)
             </Box>
@@ -79,7 +81,7 @@ const modelList = () => {
               maxW={'240px'}
               size={'sm'}
               value={searchText}
-              placeholder="搜索模型，回车确认"
+              placeholder="搜索AI助手，回车确认"
               onChange={(e) => setSearchText(e.target.value)}
               onBlur={() => {
                 if (searchText === lastSearch.current) return;
@@ -105,7 +107,7 @@ const modelList = () => {
       </Card>
 
       <Loading loading={isLoading} />
-    </>
+    </Box>
   );
 };
 

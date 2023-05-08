@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 lockfileVersion: '6.0'
 
 dependencies:
@@ -199,6 +200,338 @@ devDependencies:
 packages:
 
   registry.npmmirror.com/@alicloud/credentials@2.2.6:
+=======
+lockfileVersion: 5.4
+
+specifiers:
+  '@alicloud/dysmsapi20170525': ^2.0.23
+  '@alicloud/openapi-client': ^0.4.5
+  '@alicloud/tea-util': ^1.4.5
+  '@chakra-ui/icons': ^2.0.17
+  '@chakra-ui/react': ^2.5.1
+  '@chakra-ui/system': ^2.5.5
+  '@dqbd/tiktoken': ^1.0.6
+  '@emotion/react': ^11.10.6
+  '@emotion/styled': ^11.10.6
+  '@next/font': 13.1.6
+  '@svgr/webpack': ^6.5.1
+  '@tanstack/react-query': ^4.24.10
+  '@types/cookie': ^0.5.1
+  '@types/formidable': ^2.0.5
+  '@types/jsonwebtoken': ^9.0.1
+  '@types/lodash': ^4.14.191
+  '@types/node': 18.14.0
+  '@types/nodemailer': ^6.4.7
+  '@types/nprogress': ^0.2.0
+  '@types/papaparse': ^5.3.7
+  '@types/pg': ^8.6.6
+  '@types/react': 18.0.28
+  '@types/react-dom': 18.0.11
+  '@types/react-syntax-highlighter': ^15.5.6
+  '@types/tunnel': ^0.0.3
+  axios: ^1.3.3
+  cookie: ^0.5.0
+  crypto: ^1.0.1
+  dayjs: ^1.11.7
+  eslint: 8.34.0
+  eslint-config-next: 13.1.6
+  eventsource-parser: ^0.1.0
+  formidable: ^2.1.1
+  framer-motion: ^9.0.6
+  graphemer: ^1.4.0
+  husky: ^8.0.3
+  hyperdown: ^2.4.29
+  immer: ^9.0.19
+  jsonwebtoken: ^9.0.0
+  lint-staged: ^13.1.2
+  lodash: ^4.17.21
+  mammoth: ^1.5.1
+  mongoose: ^6.10.0
+  nanoid: ^4.0.1
+  next: 13.1.6
+  nodemailer: ^6.9.1
+  nprogress: ^0.2.0
+  openai: ^3.2.1
+  papaparse: ^5.4.1
+  pg: ^8.10.0
+  prettier: ^2.8.4
+  react: 18.2.0
+  react-dom: 18.2.0
+  react-hook-form: ^7.43.1
+  react-markdown: ^8.0.5
+  react-syntax-highlighter: ^15.5.0
+  redis: ^4.6.5
+  rehype-katex: ^6.0.2
+  remark-gfm: ^3.0.1
+  remark-math: ^5.1.1
+  sass: ^1.58.3
+  sharp: ^0.31.3
+  tunnel: ^0.0.6
+  typescript: 4.9.5
+  wxpay-v3: ^3.0.2
+  zustand: ^4.3.5
+
+dependencies:
+  '@alicloud/dysmsapi20170525': registry.npmmirror.com/@alicloud/dysmsapi20170525/2.0.23
+  '@alicloud/openapi-client': registry.npmmirror.com/@alicloud/openapi-client/0.4.5
+  '@alicloud/tea-util': registry.npmmirror.com/@alicloud/tea-util/1.4.5
+  '@chakra-ui/icons': registry.npmmirror.com/@chakra-ui/icons/2.0.17_lze4h7kxffpjhokvtqbtrlfkmq
+  '@chakra-ui/react': registry.npmmirror.com/@chakra-ui/react/2.5.1_e6pzu3hsaqmql4fl7jx73ckiym
+  '@chakra-ui/system': registry.npmmirror.com/@chakra-ui/system/2.5.5_xqp3pgpqjlfxxa3zxu4zoc4fba
+  '@dqbd/tiktoken': registry.npmmirror.com/@dqbd/tiktoken/1.0.6
+  '@emotion/react': registry.npmmirror.com/@emotion/react/11.10.6_pmekkgnqduwlme35zpnqhenc34
+  '@emotion/styled': registry.npmmirror.com/@emotion/styled/11.10.6_oouaibmszuch5k64ms7uxp2aia
+  '@next/font': registry.npmmirror.com/@next/font/13.1.6
+  '@tanstack/react-query': registry.npmmirror.com/@tanstack/react-query/4.24.10_biqbaboplfbrettd7655fr4n2y
+  '@types/nprogress': registry.npmmirror.com/@types/nprogress/0.2.0
+  axios: registry.npmmirror.com/axios/1.3.3
+  cookie: 0.5.0
+  crypto: registry.npmmirror.com/crypto/1.0.1
+  dayjs: registry.npmmirror.com/dayjs/1.11.7
+  eventsource-parser: registry.npmmirror.com/eventsource-parser/0.1.0
+  formidable: registry.npmmirror.com/formidable/2.1.1
+  framer-motion: registry.npmmirror.com/framer-motion/9.0.6_biqbaboplfbrettd7655fr4n2y
+  graphemer: registry.npmmirror.com/graphemer/1.4.0
+  hyperdown: registry.npmmirror.com/hyperdown/2.4.29
+  immer: registry.npmmirror.com/immer/9.0.19
+  jsonwebtoken: registry.npmmirror.com/jsonwebtoken/9.0.0
+  lodash: registry.npmmirror.com/lodash/4.17.21
+  mammoth: registry.npmmirror.com/mammoth/1.5.1
+  mongoose: registry.npmmirror.com/mongoose/6.10.0
+  nanoid: registry.npmmirror.com/nanoid/4.0.1
+  next: registry.npmmirror.com/next/13.1.6_wiv434v7erz4aedd5whhdwmpv4
+  nodemailer: registry.npmmirror.com/nodemailer/6.9.1
+  nprogress: registry.npmmirror.com/nprogress/0.2.0
+  openai: registry.npmmirror.com/openai/3.2.1
+  papaparse: registry.npmmirror.com/papaparse/5.4.1
+  pg: registry.npmmirror.com/pg/8.10.0
+  react: registry.npmmirror.com/react/18.2.0
+  react-dom: registry.npmmirror.com/react-dom/18.2.0_react@18.2.0
+  react-hook-form: registry.npmmirror.com/react-hook-form/7.43.1_react@18.2.0
+  react-markdown: registry.npmmirror.com/react-markdown/8.0.5_pmekkgnqduwlme35zpnqhenc34
+  react-syntax-highlighter: registry.npmmirror.com/react-syntax-highlighter/15.5.0_react@18.2.0
+  redis: registry.npmmirror.com/redis/4.6.5
+  rehype-katex: registry.npmmirror.com/rehype-katex/6.0.2
+  remark-gfm: registry.npmmirror.com/remark-gfm/3.0.1
+  remark-math: registry.npmmirror.com/remark-math/5.1.1
+  sass: registry.npmmirror.com/sass/1.58.3
+  sharp: registry.npmmirror.com/sharp/0.31.3
+  tunnel: registry.npmmirror.com/tunnel/0.0.6
+  wxpay-v3: registry.npmmirror.com/wxpay-v3/3.0.2
+  zustand: registry.npmmirror.com/zustand/4.3.5_immer@9.0.19+react@18.2.0
+
+devDependencies:
+  '@svgr/webpack': registry.npmmirror.com/@svgr/webpack/6.5.1
+  '@types/cookie': 0.5.1
+  '@types/formidable': registry.npmmirror.com/@types/formidable/2.0.5
+  '@types/jsonwebtoken': registry.npmmirror.com/@types/jsonwebtoken/9.0.1
+  '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.191
+  '@types/node': registry.npmmirror.com/@types/node/18.14.0
+  '@types/nodemailer': registry.npmmirror.com/@types/nodemailer/6.4.7
+  '@types/papaparse': registry.npmmirror.com/@types/papaparse/5.3.7
+  '@types/pg': registry.npmmirror.com/@types/pg/8.6.6
+  '@types/react': registry.npmmirror.com/@types/react/18.0.28
+  '@types/react-dom': registry.npmmirror.com/@types/react-dom/18.0.11
+  '@types/react-syntax-highlighter': registry.npmmirror.com/@types/react-syntax-highlighter/15.5.6
+  '@types/tunnel': registry.npmmirror.com/@types/tunnel/0.0.3
+  eslint: registry.npmmirror.com/eslint/8.34.0
+  eslint-config-next: registry.npmmirror.com/eslint-config-next/13.1.6_7kw3g6rralp5ps6mg3uyzz6azm
+  husky: registry.npmmirror.com/husky/8.0.3
+  lint-staged: registry.npmmirror.com/lint-staged/13.1.2
+  prettier: registry.npmmirror.com/prettier/2.8.4
+  typescript: registry.npmmirror.com/typescript/4.9.5
+
+packages:
+
+  /@aws-sdk/credential-providers/3.278.0:
+    resolution: {integrity: sha512-XeCyXru9+gxePvrnPbdITZLSCC5qg3C/hgdItstDEvrQh+vMw9DJvX5ztoKh987C0puwkbB6HENC04ZTh/0Buw==}
+    engines: {node: '>=14.0.0'}
+    requiresBuild: true
+    dependencies:
+      '@aws-sdk/client-cognito-identity': registry.npmmirror.com/@aws-sdk/client-cognito-identity/3.278.0
+      '@aws-sdk/client-sso': registry.npmmirror.com/@aws-sdk/client-sso/3.278.0
+      '@aws-sdk/client-sts': registry.npmmirror.com/@aws-sdk/client-sts/3.278.0
+      '@aws-sdk/credential-provider-cognito-identity': registry.npmmirror.com/@aws-sdk/credential-provider-cognito-identity/3.278.0
+      '@aws-sdk/credential-provider-env': registry.npmmirror.com/@aws-sdk/credential-provider-env/3.272.0
+      '@aws-sdk/credential-provider-imds': registry.npmmirror.com/@aws-sdk/credential-provider-imds/3.272.0
+      '@aws-sdk/credential-provider-ini': registry.npmmirror.com/@aws-sdk/credential-provider-ini/3.278.0
+      '@aws-sdk/credential-provider-node': registry.npmmirror.com/@aws-sdk/credential-provider-node/3.278.0
+      '@aws-sdk/credential-provider-process': registry.npmmirror.com/@aws-sdk/credential-provider-process/3.272.0
+      '@aws-sdk/credential-provider-sso': registry.npmmirror.com/@aws-sdk/credential-provider-sso/3.278.0
+      '@aws-sdk/credential-provider-web-identity': registry.npmmirror.com/@aws-sdk/credential-provider-web-identity/3.272.0
+      '@aws-sdk/property-provider': registry.npmmirror.com/@aws-sdk/property-provider/3.272.0
+      '@aws-sdk/shared-ini-file-loader': registry.npmmirror.com/@aws-sdk/shared-ini-file-loader/3.272.0
+      '@aws-sdk/types': registry.npmmirror.com/@aws-sdk/types/3.272.0
+      tslib: registry.npmmirror.com/tslib/2.5.0
+    transitivePeerDependencies:
+      - aws-crt
+    dev: false
+    optional: true
+
+  /@emotion/is-prop-valid/0.8.8:
+    resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
+    requiresBuild: true
+    dependencies:
+      '@emotion/memoize': registry.npmmirror.com/@emotion/memoize/0.7.4
+    dev: false
+    optional: true
+
+  /@next/swc-android-arm-eabi/13.1.6:
+    resolution: {integrity: sha512-F3/6Z8LH/pGlPzR1AcjPFxx35mPqjE5xZcf+IL+KgbW9tMkp7CYi1y7qKrEWU7W4AumxX/8OINnDQWLiwLasLQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-android-arm64/13.1.6:
+    resolution: {integrity: sha512-cMwQjnB8vrYkWyK/H0Rf2c2pKIH4RGjpKUDvbjVAit6SbwPDpmaijLio0LWFV3/tOnY6kvzbL62lndVA0mkYpw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-darwin-arm64/13.1.6:
+    resolution: {integrity: sha512-KKRQH4DDE4kONXCvFMNBZGDb499Hs+xcFAwvj+rfSUssIDrZOlyfJNy55rH5t2Qxed1e4K80KEJgsxKQN1/fyw==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-darwin-x64/13.1.6:
+    resolution: {integrity: sha512-/uOky5PaZDoaU99ohjtNcDTJ6ks/gZ5ykTQDvNZDjIoCxFe3+t06bxsTPY6tAO6uEAw5f6vVFX5H5KLwhrkZCA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-freebsd-x64/13.1.6:
+    resolution: {integrity: sha512-qaEALZeV7to6weSXk3Br80wtFQ7cFTpos/q+m9XVRFggu+8Ib895XhMWdJBzew6aaOcMvYR6KQ6JmHA2/eMzWw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-arm-gnueabihf/13.1.6:
+    resolution: {integrity: sha512-OybkbC58A1wJ+JrJSOjGDvZzrVEQA4sprJejGqMwiZyLqhr9Eo8FXF0y6HL+m1CPCpPhXEHz/2xKoYsl16kNqw==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-arm64-gnu/13.1.6:
+    resolution: {integrity: sha512-yCH+yDr7/4FDuWv6+GiYrPI9kcTAO3y48UmaIbrKy8ZJpi7RehJe3vIBRUmLrLaNDH3rY1rwoHi471NvR5J5NQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-arm64-musl/13.1.6:
+    resolution: {integrity: sha512-ECagB8LGX25P9Mrmlc7Q/TQBb9rGScxHbv/kLqqIWs2fIXy6Y/EiBBiM72NTwuXUFCNrWR4sjUPSooVBJJ3ESQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-x64-gnu/13.1.6:
+    resolution: {integrity: sha512-GT5w2mruk90V/I5g6ScuueE7fqj/d8Bui2qxdw6lFxmuTgMeol5rnzAv4uAoVQgClOUO/MULilzlODg9Ib3Y4Q==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-linux-x64-musl/13.1.6:
+    resolution: {integrity: sha512-keFD6KvwOPzmat4TCnlnuxJCQepPN+8j3Nw876FtULxo8005Y9Ghcl7ACcR8GoiKoddAq8gxNBrpjoxjQRHeAQ==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-arm64-msvc/13.1.6:
+    resolution: {integrity: sha512-OwertslIiGQluFvHyRDzBCIB07qJjqabAmINlXUYt7/sY7Q7QPE8xVi5beBxX/rxTGPIbtyIe3faBE6Z2KywhQ==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-ia32-msvc/13.1.6:
+    resolution: {integrity: sha512-g8zowiuP8FxUR9zslPmlju7qYbs2XBtTLVSxVikPtUDQedhcls39uKYLvOOd1JZg0ehyhopobRoH1q+MHlIN/w==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@next/swc-win32-x64-msvc/13.1.6:
+    resolution: {integrity: sha512-Ls2OL9hi3YlJKGNdKv8k3X/lLgc3VmLG3a/DeTkAd+lAituJp8ZHmRmm9f9SL84fT3CotlzcgbdaCDfFwFA6bA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
+  /cookie/0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
+    engines: {node: '>= 0.6'}
+    dev: false
+
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
+  /graceful-fs/4.2.10:
+    resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
+    dev: false
+    optional: true
+
+  /saslprep/1.0.3:
+    resolution: {integrity: sha512-/MY/PEMbk2SuY5sScONwhUDsV2p77Znkb/q3nSVstq/yQzYJOH/Azh29p9oJLsl3LnQwSvZDKagDGBsBwSooag==}
+    engines: {node: '>=6'}
+    requiresBuild: true
+    dependencies:
+      sparse-bitfield: registry.npmmirror.com/sparse-bitfield/3.0.3
+    dev: false
+    optional: true
+
+  /source-map/0.6.1:
+    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+    optional: true
+
+  registry.npmmirror.com/@alicloud/credentials/2.2.6:
+>>>>>>> 9f476f90613e3ab46528689719fab11d31840eb6
     resolution: {integrity: sha512-jG+msY77dHmAF3x+8VTy7fEgORyXLHmDci8t92HeipBdCHsPptDegA++GEwKgR7f6G4wvafYt+aqMZ1iligdrQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@alicloud/credentials/-/credentials-2.2.6.tgz}
     name: '@alicloud/credentials'
     version: 2.2.6

@@ -25,9 +25,9 @@ export const lafClaudChat = async ({
     .filter((item) => item.obj === 'System')
     .map((item) => item.value)
     .join('\n');
-  const systemPromptText = systemPrompt ? `\n知识库内容:'${systemPrompt}'\n我的问题:` : '';
+  const systemPromptText = systemPrompt ? `\n知识库内容:'${systemPrompt}'\n` : '';
 
-  const prompt = systemPromptText + messages[messages.length - 1].value;
+  const prompt = `${systemPromptText}我的问题:'${messages[messages.length - 1].value}'`;
 
   const lafResponse = await axios.post(
     'https://hnvacz.laf.run/claude-gpt',
@@ -45,18 +45,13 @@ export const lafClaudChat = async ({
     }
   );
 
-  let responseText = '';
-  let totalTokens = 0;
-
-  if (!stream) {
-    responseText = lafResponse.data?.text || '';
-  }
+  const responseText = stream ? '' : lafResponse.data?.text || '';
 
   return {
     streamResponse: lafResponse,
     responseMessages: messages.concat({ obj: ChatRoleEnum.AI, value: responseText }),
     responseText,
-    totalTokens
+    totalTokens: 0
   };
 };
 
@@ -83,18 +78,15 @@ export const lafClaudStreamResponse = async ({
     } catch (error) {
       console.log('pipe error', error);
     }
-    // count tokens
+
     const finishMessages = prompts.concat({
       obj: ChatRoleEnum.AI,
       value: responseContent
     });
-    const totalTokens = modelToolMap[ClaudeEnum.Claude].countTokens({
-      messages: finishMessages
-    });
 
     return {
       responseContent,
-      totalTokens,
+      totalTokens: 0,
       finishMessages
     };
   } catch (error) {

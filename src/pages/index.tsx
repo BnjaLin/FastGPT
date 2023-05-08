@@ -15,7 +15,7 @@ const Home = () => {
   }, [inviterId]);
 
   return (
-    <>
+    <Box p={[5, 10]}>
       <Card p={5} lineHeight={2}>
         <Markdown source={data} isChatting={false} />
       </Card>
@@ -28,7 +28,7 @@ const Home = () => {
         </Box>
         <Box>由 朝野技术部 提供技术支持</Box>
       </Card>
-    </>
+    </Box>
   );
 };
 

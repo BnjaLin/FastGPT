@@ -67,7 +67,7 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
         });
         // aut register a model
         postCreateModel({
-          name: '模型1'
+          name: 'AI助手1'
         });
       } catch (error: any) {
         toast({
@@ -167,7 +167,7 @@ const RegisterForm = ({ setPageType, loginSuccess }: Props) => {
           float={'right'}
           fontSize="sm"
           mt={2}
-          color={'blue.600'}
+          color={'myBlue.600'}
           cursor={'pointer'}
           _hover={{ textDecoration: 'underline' }}
           onClick={() => setPageType('login')}

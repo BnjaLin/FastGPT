@@ -11,18 +11,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const { name } = req.body as {
       name: string;
     };
-    const { authorization } = req.headers;
-
-    if (!authorization) {
-      throw new Error('无权操作');
-    }
 
     if (!name) {
       throw new Error('缺少参数');
     }
 
     // 凭证校验
-    const userId = await authToken(authorization);
+    const userId = await authToken(req);
 
     await connectToDatabase();
 
@@ -31,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       userId
     });
     if (authCount >= 30) {
-      throw new Error('上限 30 个模型');
+      throw new Error('上限 30 个助手');
     }
 
     // 创建模型
