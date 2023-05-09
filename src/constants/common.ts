@@ -1,6 +1,7 @@
 export enum UserAuthTypeEnum {
   register = 'register',
-  findPassword = 'findPassword'
+  findPassword = 'findPassword',
+  mobileMessages = 'mobileMessages'
 }
 
 export const PRICE_SCALE = 100000;

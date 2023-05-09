@@ -22,6 +22,15 @@ export interface UserModelSchema {
   };
 }
 
+export interface CustomerModelSchema {
+  _id: string;
+  username: string;
+  avatar: string;
+  balance: number;
+  createTime: number;
+  belongs: string;
+}
+
 export interface AuthCodeSchema {
   _id: string;
   username: string;
@@ -102,6 +111,17 @@ export interface ChatPopulate extends ChatSchema {
 }
 
 export interface BillSchema {
+  _id: string;
+  userId: string;
+  type: 'chat' | 'splitData' | 'return';
+  chatId: string;
+  time: Date;
+  textLen: number;
+  tokenLen: number;
+  price: number;
+}
+
+export interface CustomerBillSchema {
   _id: string;
   userId: string;
   type: 'chat' | 'splitData' | 'return';
