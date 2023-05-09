@@ -1,4 +1,4 @@
-import { connectToDatabase, Bill, User } from '../mongo';
+import { connectToDatabase, Bill, User, Customer } from '../mongo';
 import { ChatModelMap, OpenAiChatEnum, ChatModelType, embeddingModel } from '@/constants/model';
 import { BillTypeEnum } from '@/constants/user';
 
@@ -43,9 +43,26 @@ export const pushChatBill = async ({
       billId = res._id;
 
       // 账号扣费
-      await User.findByIdAndUpdate(userId, {
-        $inc: { balance: -price }
-      });
+      let user = await User.findById(userId);
+      if (user) {
+        // 云平台访问
+        await User.findByIdAndUpdate(userId, {
+          $inc: { balance: -price }
+        });
+      } else {
+        let customer = await Customer.findById(userId);
+        if (customer) {
+          await User.findOneAndUpdate(
+            { username: customer.belongs },
+            {
+              $inc: { balance: -price }
+            }
+          );
+          await Customer.findByIdAndUpdate(userId, {
+            $inc: { balance: -price }
+          });
+        }
+      }
     } catch (error) {
       console.log('创建账单失败:', error);
       billId && Bill.findByIdAndDelete(billId);
@@ -95,9 +112,26 @@ export const pushSplitDataBill = async ({
     billId = res._id;
 
     // 账号扣费
-    await User.findByIdAndUpdate(userId, {
-      $inc: { balance: -price }
-    });
+    let user = await User.findById(userId);
+    if (user) {
+      // 云平台访问
+      await User.findByIdAndUpdate(userId, {
+        $inc: { balance: -price }
+      });
+    } else {
+      let customer = await Customer.findById(userId);
+      if (customer) {
+        await User.findOneAndUpdate(
+          { username: customer.belongs },
+          {
+            $inc: { balance: -price }
+          }
+        );
+        await Customer.findByIdAndUpdate(userId, {
+          $inc: { balance: -price }
+        });
+      }
+    }
   } catch (error) {
     console.log('创建账单失败:', error);
     billId && Bill.findByIdAndDelete(billId);
@@ -143,9 +177,26 @@ export const pushGenerateVectorBill = async ({
       billId = res._id;
 
       // 账号扣费
-      await User.findByIdAndUpdate(userId, {
-        $inc: { balance: -price }
-      });
+      let user = await User.findById(userId);
+      if (user) {
+        // 云平台访问
+        await User.findByIdAndUpdate(userId, {
+          $inc: { balance: -price }
+        });
+      } else {
+        let customer = await Customer.findById(userId);
+        if (customer) {
+          await User.findOneAndUpdate(
+            { username: customer.belongs },
+            {
+              $inc: { balance: -price }
+            }
+          );
+          await Customer.findByIdAndUpdate(userId, {
+            $inc: { balance: -price }
+          });
+        }
+      }
     } catch (error) {
       console.log('创建账单失败:', error);
       billId && Bill.findByIdAndDelete(billId);

@@ -8,16 +8,16 @@ import { UserAuthTypeEnum } from '@/constants/common';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    // 客户使用手机号作为 username , 短信验证码 code , 所属知识库 base
-    const { username, code, email } = req.body;
+    // 客户使用手机号作为 username , 短信验证码 code , 所属知识库 belongs
+    const { username, code, belongs } = req.body;
 
-    if (!(username && code && email)) {
+    if (!(username && code && belongs)) {
       throw new Error('缺少参数');
     }
 
     await connectToDatabase();
 
-    const user = await User.findOne({ username: email });
+    const user = await User.findOne({ username: belongs });
     if (!user) {
       throw new Error('用户不存在');
     }
@@ -29,9 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       expiredTime: { $gte: Date.now() }
     });
 
-    if (!authCode) {
-      throw new Error('验证码错误');
-    }
+    // if (!authCode) {
+    //   throw new Error('验证码错误');
+    // }
 
     let customer;
 
@@ -44,7 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       customer = authUser;
     } else {
       // 若没有此用户则创建一个
-      const response = await Customer.create({ username, belongs: email });
+      const response = await Customer.create({ username, belongs: belongs });
       customer = await Customer.findById(response._id);
     }
 
