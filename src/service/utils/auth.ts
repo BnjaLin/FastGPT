@@ -55,11 +55,11 @@ export const getApiKey = async ({
     },
     [OpenAiChatEnum.GPT4]: {
       userOpenAiKey: user.openaiKey || '',
-      systemAuthKey: process.env.OPENAIKEY as string
+      systemAuthKey: process.env.GPT4KEY as string
     },
     [OpenAiChatEnum.GPT432k]: {
       userOpenAiKey: user.openaiKey || '',
-      systemAuthKey: process.env.OPENAIKEY as string
+      systemAuthKey: process.env.GPT4KEY as string
     },
     [ClaudeEnum.Claude]: {
       userOpenAiKey: '',
@@ -114,7 +114,7 @@ export const authModel = async ({
     2. authUser = false and share, anyone can use
   */
   if ((authOwner || (authUser && !model.share.isShare)) && userId !== String(model.userId)) {
-    return Promise.reject('无权操作该模型');
+    return Promise.reject(ERROR_ENUM.unAuthModel);
   }
 
   // do not share detail info

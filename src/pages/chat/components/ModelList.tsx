@@ -7,7 +7,7 @@ const ModelList = ({ models, modelId }: { models: ModelListItemType[]; modelId: 
   const router = useRouter();
 
   return (
-    <Box w={'100%'} h={'100%'} bg={'white'} overflow={'overlay'}>
+    <>
       {models.map((item) => (
         <Box key={item._id}>
           <Flex
@@ -18,6 +18,7 @@ const ModelList = ({ models, modelId }: { models: ModelListItemType[]; modelId: 
             cursor={'pointer'}
             transition={'background-color .2s ease-in'}
             borderLeft={['', '5px solid transparent']}
+            zIndex={0}
             _hover={{
               backgroundColor: ['', '#dee0e3']
             }}
@@ -28,7 +29,6 @@ const ModelList = ({ models, modelId }: { models: ModelListItemType[]; modelId: 
                 }
               : {})}
             onClick={() => {
-              if (item._id === modelId) return;
               router.replace(`/chat?modelId=${item._id}`);
             }}
           >
@@ -50,7 +50,7 @@ const ModelList = ({ models, modelId }: { models: ModelListItemType[]; modelId: 
           </Flex>
         </Box>
       ))}
-    </Box>
+    </>
   );
 };
 

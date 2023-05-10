@@ -1,81 +1,20 @@
-# Fast GPT
+# Docker 部署 FastGpt
 
-Fast GPT 允许你使用自己的 openai API KEY 来快速的调用 openai 接口，目前集成了 gpt35 和 embedding. 可构建自己的知识库。
+## 代理环境（国外服务器可忽略）
 
-## 🛸 在线体验
+选择一个即可。
 
-🎉 [fastgpt.run](https://fastgpt.run/) （国内版）
-🎉 [ai.fastgpt.run](https://ai.fastgpt.run/) （海外版）
+1. [clash 方案](./proxy/clash.md) - 仅需一台服务器（需要有 clash）
+2. [nginx 方案](./proxy/nginx.md) - 需要一台国外服务器
+3. [cloudflare 方案](./proxy/cloudflare.md) - 需要有域名（每日免费 10w 次代理请求）
 
-![Demo](docs/imgs/demo.png?raw=true 'demo')
-
-#### 知识库原理图
-
-![KBProcess](docs/imgs/KBProcess.jpg?raw=true 'KBProcess')
-
-## 👨‍💻 开发
-
-项目技术栈: NextJs + TS + ChakraUI + Mongo + Postgres（Vector 插件）  
-这是一个平台项目，非单机项目，除了模型调用外还涉及非常多用户的内容。  
-[本地开发 Quick Start](docs/dev/README.md)
-
-## 🚀 私有化部署
-
-```bash
-# proxy（可选）
-AXIOS_PROXY_HOST=127.0.0.1
-AXIOS_PROXY_PORT=7890
-# openai 中转连接（可选）
-OPENAI_BASE_URL=https://api.openai.com/v1
-OPENAI_BASE_URL_AUTH=可选的安全凭证
-queueTask=1
-parentUrl=https://hostname/api/openapi/startEvents
-# 发送邮箱验证码配置。用的是QQ邮箱。参考 nodeMail 获取MAILE_CODE，自行百度。
-MY_MAIL=xxx@qq.com
-MAILE_CODE=xxx
-aliAccessKeyId=xxx
-aliAccessKeySecret=xxx
-aliSignName=xxx
-aliTemplateCode=SMS_xxx
-TOKEN_KEY=xxx
-OPENAIKEY=sk-xxx
-# 和mongo镜像的username,password对应
-MONGODB_URI=mongodb://username:password@服务器IP:27017/test?authSource=admin
-MONGODB_NAME=xxx
-PG_HOST=服务器IP
-PG_PORT=8100
-PG_USER=fastgpt # POSTGRES_USER
-PG_PASSWORD=1234 # POSTGRES_PASSWORD
-PG_DB_NAME=fastgpt # POSTGRES_DB
-```
-
-[docker-compose 部署教程](docs/deploy/docker.md)
-
-## :point_right: RoadMap
-
-- [FastGpt RoadMap](https://kjqvjse66l.feishu.cn/docx/RVUxdqE2WolDYyxEKATcM0XXnte)
-
-## 🏘️ 交流群
-
-wx: fastgpt123  
-![Demo](docs/imgs/wx300.jpg?raw=true 'wx')
-
-## 👀 其他
-
-- [FastGpt 常见问题](https://kjqvjse66l.feishu.cn/docx/HtrgdT0pkonP4kxGx8qcu6XDnGh)
-- [FastGpt + Laf 最佳实践，将知识库装入公众号，点击去 Laf 公众号体验效果](https://hnvacz-laf-upload-ai.oss.laf.run/3ffd528ee2f9ae1dcd3508fe9994dd9.png)
-- [FastGpt V3.4 更新集合](https://www.bilibili.com/video/BV1Lo4y147Qh/?vd_source=92041a1a395f852f9d89158eaa3f61b4)
-- [FastGpt 知识库演示](https://www.bilibili.com/video/BV1Wo4y1p7i1/)
-
-## 🌟 Star History
-
-#### 1. 准备
+### 1. 准备一些内容
 
 > 1. 服务器开通 80 端口。用代理的话，对应的代理端口也需要打开。
 > 2. QQ 邮箱 Code：进入 QQ 邮箱 -> 账号 -> 申请 SMTP 账号
 > 3. 有域名的准备好 SSL 证书
 
-#### 2. 安装 docker 和 docker-compose
+### 2. 安装 docker 和 docker-compose
 
 这个不同系统略有区别，百度安装下。验证安装成功后进行下一步。下面给出一个例子：
 
@@ -89,14 +28,14 @@ sudo chmod +x /usr/local/bin/docker-compose
 # 验证安装
 docker -v
 docker-compose -v
-# 如果docker-compose运行不了，可以把 deploy/docker-compose 文件复制到服务器，然后在 docker-compose 文件夹里执行 sh init.sh。会把docker-compose文件复制到对应目录。
+# 如果docker-compose运行不了，可以把 deploy/fastgpt/docker-compose 文件复制到服务器，然后在 docker-compose 文件夹里执行 sh init.sh。会把docker-compose文件复制到对应目录。
 ```
 
-#### 2. 创建 3 个初始化文件
+### 2. 创建 3 个初始化文件
 
-手动创建或者直接把 deploy 里内容复制过去,然后把 deploy 文件夹改名为: fastgpt
+手动创建或者直接把 fastgpt 文件夹复制过去。
 
-**/root/fast-gpt/pg/init.sql PG 数据库初始化**
+**/root/fastgpt/pg/init.sql PG 数据库初始化**
 
 ```sql
 set -e
@@ -120,7 +59,7 @@ CREATE INDEX modelData_modelId_index ON modelData USING HASH (model_id);
 EOSQL
 ```
 
-**/root/fast-gpt/nginx/nginx.conf Nginx 配置**
+**/root/fastgpt/nginx/nginx.conf Nginx 配置**
 
 ```conf
 user nginx;
@@ -183,7 +122,9 @@ http {
 }
 ```
 
-**/root/fast-gpt/docker-compose.yml 核心部署文件**
+**/root/fastgpt/docker-compose.yml 核心部署文件**
+
+环境变量内容和开发时的环境变量基本相同，除了数据库的地址。
 
 ```yml
 version: '3.3'
@@ -192,7 +133,7 @@ services:
     image: c121914yu/fast-gpt:latest
     network_mode: host
     restart: always
-    container_name: fast-gpt
+    container_name: fastgpt
     environment:
       # proxy（可选）
       - AXIOS_PROXY_HOST=127.0.0.1
@@ -269,7 +210,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 ```
 
-#### 3. 运行 docker-compose
+### 3. 运行 docker-compose
 
 下面是一个辅助脚本，也可以直接 docker-compose up -d
 
@@ -299,7 +240,7 @@ done
 
 ## 其他优化点
 
-### Git Action 自动打包镜像
+# Git Action 自动打包镜像
 
 .github 里拥有一个 git 提交到 main 分支时自动打包 amd64 和 arm64 镜像的 actions。你仅需要提前在 git 配置好 session。
 
@@ -311,5 +252,4 @@ done
 
 ### Mac 可能的问题
 
-> 因为教程有部分镜像不兼容 arm64，所以写个文档指导新手如何快速在 mac 上面搭建 fast-gpt[如何在 mac 上面部署 fastgpt](./docs/mac.md)
-> [![Star History Chart](https://api.star-history.com/svg?repos=c121914yu/FastGPT&type=Date)](https://star-history.com/#c121914yu/FastGPT&Date)
+> 因为教程有部分镜像不兼容 arm64，所以写个文档指导新手如何快速在 mac 上面搭建 fast-gpt[在 mac 上面部署 fastgpt 可能存在的问题](./mac.md)

@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/useToast';
 import { useGlobalStore } from '@/store/global';
 import { useUserStore } from '@/store/user';
 import { UserType } from '@/types/user';
-import { clearToken } from '@/utils/user';
+import { clearCookie } from '@/utils/user';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
@@ -22,7 +22,7 @@ const NumberSetting = () => {
   const router = useRouter();
   const { userInfo, updateUserInfo, initUserInfo, setUserInfo } = useUserStore();
   const { setLoading } = useGlobalStore();
-  const { register, handleSubmit } = useForm<UserUpdateParams>({
+  const { register, handleSubmit, reset } = useForm<UserUpdateParams>({
     defaultValues: userInfo as UserType
   });
   const [showPay, setShowPay] = useState(false);
@@ -35,11 +35,11 @@ const NumberSetting = () => {
 
   const onclickSave = useCallback(
     async (data: UserUpdateParams) => {
-      if (data.openaiKey === userInfo?.openaiKey) return;
       setLoading(true);
       try {
         await putUserInfo(data);
         updateUserInfo(data);
+        reset(data);
         toast({
           title: '更新成功',
           status: 'success'
@@ -47,7 +47,7 @@ const NumberSetting = () => {
       } catch (error) {}
       setLoading(false);
     },
-    [setLoading, toast, updateUserInfo, userInfo?.openaiKey]
+    [reset, setLoading, toast, updateUserInfo]
   );
 
   const onSelectFile = useCallback(
@@ -57,8 +57,8 @@ const NumberSetting = () => {
       try {
         const base64 = await compressImg({
           file,
-          maxW: 40,
-          maxH: 60
+          maxW: 100,
+          maxH: 100
         });
         onclickSave({
           ...userInfo,
@@ -75,7 +75,7 @@ const NumberSetting = () => {
   );
 
   const onclickLogOut = useCallback(() => {
-    clearToken();
+    clearCookie();
     setUserInfo(null);
     router.replace('/login');
   }, [router, setUserInfo]);
@@ -100,8 +100,8 @@ const NumberSetting = () => {
             src={userInfo?.avatar}
             alt={'avatar'}
             w={['28px', '36px']}
-            h={['28px', '36px']}
-            objectFit={'cover'}
+            maxH={'40px'}
+            objectFit={'contain'}
             cursor={'pointer'}
             title={'点击切换头像'}
             onClick={onOpenSelectFile}
