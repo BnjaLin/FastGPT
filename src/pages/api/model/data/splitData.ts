@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { jsonRes } from '@/service/response';
-import { connectToDatabase, SplitData, Model } from '@/service/mongo';
-import { authToken } from '@/service/utils/auth';
+import { connectToDatabase, SplitData } from '@/service/mongo';
+import { authModel, authToken } from '@/service/utils/auth';
 import { generateVector } from '@/service/events/generateVector';
 import { generateQA } from '@/service/events/generateQA';
 import { PgClient } from '@/service/pg';
@@ -23,14 +23,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const userId = await authToken(req);
 
     // 验证是否是该用户的 model
-    const model = await Model.findOne({
-      _id: modelId,
+    await authModel({
+      modelId,
       userId
     });
-
-    if (!model) {
-      throw new Error('无权操作该模型');
-    }
 
     if (mode === 'qa') {
       // 批量QA拆分插入数据
@@ -69,7 +65,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: '10mb'
+      sizeLimit: '100mb'
     }
   }
 };

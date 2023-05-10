@@ -198,7 +198,6 @@ const Chat = ({
         if (newChatId) {
           setForbidLoadChatData(true);
           router.replace(`/chat?modelId=${modelId}&chatId=${newChatId}`);
-          loadHistory({ pageNum: 1, init: true });
         }
       } catch (err) {
         toast({
@@ -222,6 +221,9 @@ const Chat = ({
           };
         })
       }));
+
+      // refresh history
+      loadHistory({ pageNum: 1, init: true });
     },
     [
       chatId,
@@ -488,13 +490,6 @@ const Chat = ({
     modelId && setLastChatModelId(modelId);
     setLastChatId(chatId);
 
-    // focus scroll bottom
-    chatId && scrollToBottom('auto');
-
-    /* get mode and chat into ↓ */
-
-    // phone: history page
-    if (!isPc && Object.keys(router.query).length === 0) return null;
     if (forbidLoadChatData) {
       setForbidLoadChatData(false);
       return null;
@@ -511,7 +506,7 @@ const Chat = ({
       isLeavePage.current = true;
       controller.current?.abort();
     };
-  }, []);
+  }, [modelId, chatId]);
 
   return (
     <Flex
@@ -550,26 +545,26 @@ const Chat = ({
               onClick={onOpenSlider}
             />
             <Box>{chatData.model.name}</Box>
-            <Menu autoSelect={false}>
-              <MenuButton lineHeight={1}>
-                <MyIcon
-                  name={'more'}
-                  w={'16px'}
-                  h={'16px'}
-                  color={useColorModeValue('blackAlpha.700', 'white')}
-                />
-              </MenuButton>
-              <MenuList minW={`90px !important`}>
-                <MenuItem onClick={() => router.replace(`/chat?modelId=${modelId}`)}>
-                  新对话
-                </MenuItem>
-                {chatId && (
+            {chatId && (
+              <Menu autoSelect={false}>
+                <MenuButton lineHeight={1}>
+                  <MyIcon
+                    name={'more'}
+                    w={'16px'}
+                    h={'16px'}
+                    color={useColorModeValue('blackAlpha.700', 'white')}
+                  />
+                </MenuButton>
+                <MenuList minW={`90px !important`}>
+                  <MenuItem onClick={() => router.replace(`/chat?modelId=${modelId}`)}>
+                    新对话
+                  </MenuItem>
                   <MenuItem
                     onClick={async () => {
                       try {
                         setIsLoading(true);
                         await onclickDelHistory(chatData.chatId);
-                        router.replace(`/chat`);
+                        router.replace(`/chat?modelId=${modelId}`);
                       } catch (err) {
                         console.log(err);
                       }
@@ -578,12 +573,12 @@ const Chat = ({
                   >
                     删除记录
                   </MenuItem>
-                )}
-                <MenuItem onClick={() => onclickExportChat('html')}>导出HTML格式</MenuItem>
-                <MenuItem onClick={() => onclickExportChat('pdf')}>导出PDF格式</MenuItem>
-                <MenuItem onClick={() => onclickExportChat('md')}>导出Markdown格式</MenuItem>
-              </MenuList>
-            </Menu>
+                  <MenuItem onClick={() => onclickExportChat('html')}>导出HTML格式</MenuItem>
+                  <MenuItem onClick={() => onclickExportChat('pdf')}>导出PDF格式</MenuItem>
+                  <MenuItem onClick={() => onclickExportChat('md')}>导出Markdown格式</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
           </Flex>
           <Drawer isOpen={isOpenSlider} placement="left" size={'xs'} onClose={onCloseSlider}>
             <DrawerOverlay backgroundColor={'rgba(255,255,255,0.5)'} />
@@ -640,7 +635,7 @@ const Chat = ({
                       />
                     </MenuButton>
                     <MenuList fontSize={'sm'}>
-                      {chatData.model.canUse && (
+                      {chatData.model.canUse && item.obj === 'AI' && (
                         <MenuItem onClick={() => router.push(`/model?modelId=${chatData.modelId}`)}>
                           AI助手详情
                         </MenuItem>
@@ -675,6 +670,7 @@ const Chat = ({
                       </Box>
                     )}
                   </Box>
+                  {/* copy and clear icon */}
                   {isPc && (
                     <Flex h={'100%'} flexDirection={'column'} ml={2} w={'14px'} height={'100%'}>
                       <Box minH={'40px'} flex={1}>
@@ -805,7 +801,7 @@ const Chat = ({
           <ModalOverlay />
           <ModalContent maxW={'min(90vw, 600px)'} pr={2} maxH={'80vh'} overflowY={'auto'}>
             <ModalCloseButton />
-            <ModalBody pt={5} fontSize={'sm'} whiteSpace={'pre-wrap'} textAlign={'justify'}>
+            <ModalBody pt={5} whiteSpace={'pre-wrap'} textAlign={'justify'}>
               {showSystemPrompt}
             </ModalBody>
           </ModalContent>
@@ -815,8 +811,6 @@ const Chat = ({
   );
 };
 
-export default Chat;
-
 Chat.getInitialProps = ({ query, req }: any) => {
   return {
     modelId: query?.modelId || '',
@@ -824,3 +818,5 @@ Chat.getInitialProps = ({ query, req }: any) => {
     isPcDevice: !/Mobile/.test(req ? req.headers['user-agent'] : navigator.userAgent)
   };
 };
+
+export default Chat;
