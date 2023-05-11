@@ -626,12 +626,13 @@ const Chat = ({
                         src={
                           item.obj === 'Human'
                             ? userInfo?.avatar
-                            : chatData.model.avatar || LOGO_ICON
+                            : chatData.model.avatar || '/icon/logo.png'
                         }
                         alt="avatar"
                         w={['20px', '30px']}
                         maxH={'50px'}
                         objectFit={'contain'}
+                        borderRadius={'md'}
                       />
                     </MenuButton>
                     <MenuList fontSize={'sm'}>

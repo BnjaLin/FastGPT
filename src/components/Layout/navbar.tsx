@@ -78,7 +78,7 @@ const Navbar = () => {
         onClick={() => router.push('/number')}
       >
         <Image
-          src={userInfo?.avatar || '/icon/human.png'}
+          src={userInfo?.avatar || '/icon/avatar.jpg'}
           objectFit={'contain'}
           w={'36px'}
           h={'36px'}

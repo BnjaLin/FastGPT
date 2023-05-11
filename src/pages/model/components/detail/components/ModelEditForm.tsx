@@ -90,6 +90,7 @@ const ModelEditForm = ({
             w={['28px', '36px']}
             h={['28px', '36px']}
             objectFit={'cover'}
+            borderRadius={'md'}
             cursor={isOwner ? 'pointer' : 'default'}
             title={'点击切换头像'}
             onClick={() => isOwner && onOpenSelectFile()}

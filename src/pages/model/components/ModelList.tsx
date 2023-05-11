@@ -140,6 +140,7 @@ const ModelList = ({ modelId }: { modelId: string }) => {
                   w={'34px'}
                   maxH={'50px'}
                   objectFit={'contain'}
+                  borderRadius={'md'}
                 />
                 <Box flex={'1 0 0'} w={0} ml={3}>
                   <Box className="textEllipsis" color={'myGray.1000'}>
