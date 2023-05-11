@@ -4,9 +4,10 @@
 
 选择一个即可。
 
-1. [clash 方案](./proxy/clash.md) - 仅需一台服务器（需要有 clash）
-2. [nginx 方案](./proxy/nginx.md) - 需要一台国外服务器
-3. [cloudflare 方案](./proxy/cloudflare.md) - 需要有域名（每日免费 10w 次代理请求）
+1. [sealos nginx 方案](./proxy/sealos.md) - 推荐。约等于不用钱，不需要额外准备任何东西。
+2. [clash 方案](./proxy/clash.md) - 仅需一台服务器（需要有 clash）
+3. [nginx 方案](./proxy/nginx.md) - 需要一台国外服务器
+4. [cloudflare 方案](./proxy/cloudflare.md) - 需要有域名（每日免费 10w 次代理请求）
 
 ### 1. 准备一些内容
 
@@ -129,57 +130,8 @@ http {
 ```yml
 version: '3.3'
 services:
-  fast-gpt:
-    image: c121914yu/fast-gpt:latest
-    network_mode: host
-    restart: always
-    container_name: fastgpt
-    environment:
-      # proxy（可选）
-      - AXIOS_PROXY_HOST=127.0.0.1
-      - AXIOS_PROXY_PORT=7890
-      # openai 中转连接（可选）
-      - OPENAI_BASE_URL=https://api.openai.com/v1
-      - OPENAI_BASE_URL_AUTH=可选的安全凭证
-      # 是否开启队列任务。 1-开启，0-关闭（请求 parentUrl 去执行任务,单机时直接填1）
-      - queueTask=1
-      - parentUrl=https://hostname/api/openapi/startEvents
-      # 发送邮箱验证码配置。用的是QQ邮箱。参考 nodeMail 获取MAILE_CODE，自行百度。
-      - MY_MAIL=xxxx@qq.com
-      - MAILE_CODE=xxxx
-      # 阿里短信服务（邮箱和短信至少二选一）
-      - aliAccessKeyId=xxxx
-      - aliAccessKeySecret=xxxx
-      - aliSignName=xxxxx
-      - aliTemplateCode=SMS_xxxx
-      # token加密凭证（随便填，作为登录凭证）
-      - TOKEN_KEY=xxxx
-      - queueTask=1
-      - parentUrl=https://hostname/api/openapi/startEvents
-      # 和下方mongo镜像的username,password对应
-      - MONGODB_URI=mongodb://username:passsword@0.0.0.0:27017/?authSource=admin
-      - MONGODB_NAME=xxx
-      - PG_HOST=0.0.0.0
-      - PG_PORT=8100
-      # 和下方PG镜像对应.
-      - PG_USER=fastgpt # POSTGRES_USER
-      - PG_PASSWORD=1234 # POSTGRES_PASSWORD
-      - PG_DB_NAME=fastgpt # POSTGRES_DB
-      - OPENAIKEY=sk-xxxxx
-  nginx:
-    image: nginx:alpine3.17
-    container_name: nginx
-    restart: always
-    network_mode: host
-    volumes:
-      # 刚创建的文件
-      - /root/fastgpt/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /root/fastgpt/nginx/logs:/var/log/nginx
-      # https证书，没有的话不填，对应的nginx.conf也要修改
-      - /root/fastgpt/nginx/ssl/docgpt.key:/ssl/docgpt.key
-      - /root/fastgpt/nginx/ssl/docgpt.pem:/ssl/docgpt.pem
   pg:
-    image: ankane/pgvector
+    image: ankane/pgvector:v0.4.1
     container_name: pg
     restart: always
     ports:
@@ -208,6 +160,54 @@ services:
       - /root/fastgpt/mongo/data:/data/db
       - /root/fastgpt/mongo/logs:/var/log/mongodb
       - /etc/localtime:/etc/localtime:ro
+  fast-gpt:
+    image: c121914yu/fast-gpt:latest
+    network_mode: host
+    restart: always
+    container_name: fast-gpt
+    environment:
+      # proxy（可选）
+      - AXIOS_PROXY_HOST=127.0.0.1
+      - AXIOS_PROXY_PORT=7890
+      # openai 中转连接（可选）
+      - OPENAI_BASE_URL=https://api.openai.com/v1
+      - OPENAI_BASE_URL_AUTH=可选的安全凭证
+      # 是否开启队列任务。 1-开启，0-关闭（请求 parentUrl 去执行任务,单机时直接填1）
+      - queueTask=1
+      - parentUrl=https://hostname/api/openapi/startEvents
+      # 发送邮箱验证码配置。用的是QQ邮箱。参考 nodeMail 获取MAILE_CODE，自行百度。
+      - MY_MAIL=xxxx@qq.com
+      - MAILE_CODE=xxxx
+      # 阿里短信服务（邮箱和短信至少二选一）
+      - aliAccessKeyId=xxxx
+      - aliAccessKeySecret=xxxx
+      - aliSignName=xxxxx
+      - aliTemplateCode=SMS_xxxx
+      # token加密凭证（随便填，作为登录凭证）
+      - TOKEN_KEY=xxxx
+      # 和上方mongo镜像的username,password对应
+      - MONGODB_URI=mongodb://username:password@0.0.0.0:27017/?authSource=admin
+      - MONGODB_NAME=fastgpt
+      - PG_HOST=0.0.0.0
+      - PG_PORT=8100
+      # 和上方PG镜像对应.
+      - PG_USER=fastgpt # POSTGRES_USER
+      - PG_PASSWORD=1234 # POSTGRES_PASSWORD
+      - PG_DB_NAME=fastgpt # POSTGRES_DB
+      # openai api key
+      - OPENAIKEY=sk-xxxxx
+  nginx:
+    image: nginx:alpine3.17
+    container_name: nginx
+    restart: always
+    network_mode: host
+    volumes:
+      # 刚创建的文件
+      - /root/fastgpt/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /root/fastgpt/nginx/logs:/var/log/nginx
+      # https证书，没有的话不填，对应的nginx.conf也要修改
+      - /root/fastgpt/nginx/ssl/docgpt.key:/ssl/docgpt.key
+      - /root/fastgpt/nginx/ssl/docgpt.pem:/ssl/docgpt.pem
 ```
 
 ### 3. 运行 docker-compose
