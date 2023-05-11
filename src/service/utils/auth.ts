@@ -1,7 +1,7 @@
 import type { NextApiRequest } from 'next';
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
-import { Chat, Model, OpenApi, User } from '../mongo';
+import { Chat, Customer, Model, OpenApi, User } from '../mongo';
 import type { ModelSchema } from '@/types/mongoSchema';
 import type { ChatItemSimpleType } from '@/types/chat';
 import mongoose from 'mongoose';
@@ -43,22 +43,37 @@ export const getApiKey = async ({
   userId: string;
   mustPay?: boolean;
 }) => {
-  const user = await User.findById(userId);
-  if (!user) {
+  let flag, user;
+  let u = await User.findById(userId);
+  if (user) {
+    user = u;
+  } else {
+    let customer = await Customer.findById(userId);
+    if (!customer) {
+      throw new Error('凭证异常');
+    }
+    let customerUser = await User.findOne({ username: customer.belongs });
+    if (!customerUser) {
+      throw new Error('凭证异常');
+    }
+    flag = true;
+    user = customerUser;
+  }
+  if (!flag) {
     return Promise.reject(ERROR_ENUM.unAuthorization);
   }
 
   const keyMap = {
     [OpenAiChatEnum.GPT35]: {
-      userOpenAiKey: user.openaiKey || '',
+      userOpenAiKey: user!.openaiKey || '',
       systemAuthKey: process.env.OPENAIKEY as string
     },
     [OpenAiChatEnum.GPT4]: {
-      userOpenAiKey: user.openaiKey || '',
+      userOpenAiKey: user!.openaiKey || '',
       systemAuthKey: process.env.GPT4KEY as string
     },
     [OpenAiChatEnum.GPT432k]: {
-      userOpenAiKey: user.openaiKey || '',
+      userOpenAiKey: user!.openaiKey || '',
       systemAuthKey: process.env.GPT4KEY as string
     },
     [ClaudeEnum.Claude]: {
@@ -77,7 +92,7 @@ export const getApiKey = async ({
   }
 
   // 平台账号余额校验
-  if (formatPrice(user.balance) <= 0) {
+  if (formatPrice(user!.balance) <= 0) {
     return Promise.reject(ERROR_ENUM.insufficientQuota);
   }
 
@@ -108,12 +123,28 @@ export const authModel = async ({
     return Promise.reject('模型不存在');
   }
 
-  /* 
+  /*
     Access verification
     1. authOwner=true or authUser = true ,  just owner can use
     2. authUser = false and share, anyone can use
   */
-  if ((authOwner || (authUser && !model.share.isShare)) && userId !== String(model.userId)) {
+  let flag;
+  let user = await User.findById(userId);
+  if (user) {
+    flag = userId !== String(model.userId);
+  } else {
+    let customer = await Customer.findById(userId);
+    if (!customer) {
+      throw new Error('凭证异常');
+    }
+    let user = await User.findOne({ username: customer.belongs });
+    if (!user) {
+      throw new Error('凭证异常');
+    }
+    flag = String(user._id) !== String(model.userId);
+  }
+
+  if ((authOwner || (authUser && !model.share.isShare)) && flag) {
     return Promise.reject(ERROR_ENUM.unAuthModel);
   }
 
